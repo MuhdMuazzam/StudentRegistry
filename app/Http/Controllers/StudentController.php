@@ -47,12 +47,12 @@ class StudentController extends Controller
     public function searchStudent(Request $request)
     {
         if(empty($request->name)){
-            $mydata=student::all();
+            $mydata=student::paginate(10);
         } else {
             if($request->name){
-                $mydata = student::where('name','like','%'.$request->name.'%')->get();
+                $mydata = student::where('name','like','%'.$request->name.'%')->paginate(10);
             } elseif($request->email) {
-                $mydata = student::where('email','like','%'.$request->email.'%')->get();
+                $mydata = student::where('email','like','%'.$request->email.'%')->paginate(10);
             }
         }
         return view('ManageStudent.student',['mydata'=>$mydata]);
